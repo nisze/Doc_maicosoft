@@ -49,7 +49,7 @@ O **Maiconsoft API** é um sistema completo de gestão empresarial desenvolvido 
 - **Luiz Antonio** - Front-end Developer & UX/UI
 - **Denise Oliveira** - Full-Stack Developer & DBA
 - **João Vinícius** - Líder do Projeto & Gestão, Planejamento, Organização
-- **Leandro Nicoas** - QA Specialist
+- **Leandro Nicolas** - QA Specialist
 
 ## 🤝 Contribuição
 
