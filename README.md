@@ -22,7 +22,7 @@ O **Maiconsoft API** é um sistema completo de gestão empresarial desenvolvido 
 ### 🛠️ Tecnologias Utilizadas
 
 **Backend:**
-- Java 17 com Spring Boot
+- Java 21 com Spring Boot
 - Spring Security (JWT)
 - JPA/Hibernate
 - SQL Server
@@ -46,18 +46,10 @@ O **Maiconsoft API** é um sistema completo de gestão empresarial desenvolvido 
 
 ### 👥 Equipe de Desenvolvimento
 
-- **Maicon Oliveira** - Fullstack Developer & Project Lead
-- **Denise Oliveira** - Frontend Developer & UX Designer
-
-## 📈 Status do Projeto
-
-🔄 **Em Desenvolvimento Ativo**
-
-- **Fase 1**: ✅ Estrutura base e CRUD principal
-- **Fase 2**: 🔄 Sistema de cupons avançado
-- **Fase 3**: 📋 Gestão de materiais
-- **Fase 4**: 🔧 Serviços especializados
-- **Fase 5**: 📊 Relatórios e BI
+- **Luiz Antonio** - Front-end Developer & UX/UI
+- **Denise Oliveira** - Full-Stack Developer & DBA
+- **João Vinícius** - Líder do Projeto & Gestão, Planejamento, Organização
+- **Leandro Nicolas** - QA Specialist
 
 ## 🤝 Contribuição
 
