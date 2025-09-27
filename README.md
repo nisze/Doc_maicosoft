@@ -12,7 +12,7 @@ Sistema de Gestão Empresarial Completo - Documentação Técnica
 - **[Estrutura do Banco de Dados](https://nisze.github.io/Doc_maicosoft/database-structure.html)** - Modelagem e tabelas
 - **[Detalhes do Backend](https://nisze.github.io/Doc_maicosoft/backend-details.html)** - API REST e arquitetura
 - **[Detalhes do Frontend](https://nisze.github.io/Doc_maicosoft/frontend-details.html)** - Interface e experiência do usuário
-- **[Simulação de Sprints](https://nisze.github.io/Doc_maicosoft/sprints-simulation.html)** - Cronograma de desenvolvimento
+- **[Sprints](https://nisze.github.io/Doc_maicosoft/sprints-simulation.html)** - Cronograma de desenvolvimento
 - **[Próximos Passos](https://nisze.github.io/Doc_maicosoft/next-steps-implementation.html)** - Roadmap de implementação
 
 ## 🚀 Sobre o Projeto
