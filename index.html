@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maiconsoft API - Documentação Completa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 3.2em;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.3em;
+            margin-bottom: 25px;
+        }
+
+        .team-section {
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .team-member {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .team-member h4 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .team-member .role {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .team-member .skills {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .doc-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 5px solid;
+        }
+
+        .doc-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .doc-card.database {
+            border-left-color: #667eea;
+        }
+
+        .doc-card.backend {
+            border-left-color: #3282b8;
+        }
+
+        .doc-card.frontend {
+            border-left-color: #e74c3c;
+        }
+
+        .doc-card.sprints {
+            border-left-color: #2c3e50;
+        }
+
+        .doc-card.roadmap {
+            border-left-color: #1e3c72;
+        }
+
+        .doc-card h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .doc-card.database h3 { color: #667eea; }
+        .doc-card.backend h3 { color: #3282b8; }
+        .doc-card.frontend h3 { color: #e74c3c; }
+        .doc-card.sprints h3 { color: #2c3e50; }
+        .doc-card.roadmap h3 { color: #1e3c72; }
+
+        .doc-card p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1.05em;
+        }
+
+        .doc-card .features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .doc-card .features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            color: #555;
+        }
+
+        .doc-card .features li:last-child {
+            border-bottom: none;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn.backend {
+            background: linear-gradient(45deg, #0f4c75, #3282b8);
+            box-shadow: 0 4px 15px rgba(50, 130, 184, 0.3);
+        }
+
+        .btn.backend:hover {
+            box-shadow: 0 8px 25px rgba(50, 130, 184, 0.4);
+        }
+
+        .btn.frontend {
+            background: linear-gradient(45deg, #e74c3c, #f39c12);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn.frontend:hover {
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+        }
+
+        .btn.sprints {
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3);
+        }
+
+        .btn.sprints:hover {
+            box-shadow: 0 8px 25px rgba(44, 62, 80, 0.4);
+        }
+
+        .btn.roadmap {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+        }
+
+        .btn.roadmap:hover {
+            box-shadow: 0 8px 25px rgba(30, 60, 114, 0.4);
+        }
+
+        .stats-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 30px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+            
+            .docs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏗️ Maiconsoft API</h1>
+            <p>Sistema de Gestão Empresarial Completo</p>
+            <p style="font-size: 1.1em; margin-bottom: 0;">Documentação Técnica e Apresentação do Projeto</p>
+            
+            <div class="team-section">
+                <h3 style="color: #2c3e50; margin-bottom: 20px; text-align: center;">👥 Equipe de Desenvolvimento</h3>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <h4>🗄️ Denise</h4>
+                        <div class="role">Dev Full Stack / DBA</div>
+                        <div class="skills">Backend, Banco de Dados, Arquitetura</div>
+                    </div>
+                    <div class="team-member">
+                        <h4>🧪 Leandro</h4>
+                        <div class="role">QA Specialist</div>
+                        <div class="skills">Testes, Qualidade, Validação</div>
+                    </div>
+                    <div class="team-member">
+                        <h4>🎨 Luiz Antonio</h4>
+                        <div class="role">Dev Front-end</div>
+                        <div class="skills">Interface, UX/UI, Responsividade</div>
+                    </div>
+                    <div class="team-member">
+                        <h4>📋 João Vinícius</h4>
+                        <div class="role">Líder do Projeto</div>
+                        <div class="skills">Gestão, Planejamento, Organização</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <h2 style="color: #2c3e50; text-align: center; margin-bottom: 20px;">📈 Estatísticas do Projeto</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-value">5</span>
+                    <div>Documentações</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">8</span>
+                    <div>Tabelas no BD</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">40+</span>
+                    <div>APIs REST</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">4</span>
+                    <div>Sprints</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">6</span>
+                    <div>Páginas Frontend</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">100%</span>
+                    <div>Responsivo</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="docs-grid">
+            <div class="doc-card database">
+                <h3>🗄️ Estrutura do Banco de Dados</h3>
+                <p>Documentação completa da arquitetura do banco de dados com todas as tabelas, relacionamentos e modelo lógico visual.</p>
+                <ul class="features">
+                    <li>✓ 8 Tabelas relacionais documentadas</li>
+                    <li>✓ Modelo lógico interativo</li>
+                    <li>✓ Relacionamentos detalhados</li>
+                    <li>✓ Estrutura de campos e tipos</li>
+                    <li>✓ Explicação técnica completa</li>
+                </ul>
+                <a href="database-structure.html" class="btn">Ver Documentação</a>
+            </div>
+
+            <div class="doc-card backend">
+                <h3>⚙️ Backend Detalhado</h3>
+                <p>Documentação técnica completa do backend: arquitetura, tecnologias, APIs, segurança e performance.</p>
+                <ul class="features">
+                    <li>✓ Java 21 + Spring Boot 3.5.5</li>
+                    <li>✓ 40+ APIs REST documentadas</li>
+                    <li>✓ Segurança JWT implementada</li>
+                    <li>✓ Métricas de performance</li>
+                    <li>✓ Arquitetura em camadas</li>
+                </ul>
+                <a href="backend-details.html" class="btn backend">Ver Backend</a>
+            </div>
+
+            <div class="doc-card frontend">
+                <h3>🎨 Frontend Detalhado</h3>
+                <p>Documentação da interface: design responsivo, tecnologias frontend, UX/UI e otimizações implementadas.</p>
+                <ul class="features">
+                    <li>✓ HTML5, CSS3, JavaScript ES6+</li>
+                    <li>✓ Design 100% responsivo</li>
+                    <li>✓ 6 páginas funcionais</li>
+                    <li>✓ Performance otimizada</li>
+                    <li>✓ Acessibilidade WCAG 2.1</li>
+                </ul>
+                <a href="frontend-details.html" class="btn frontend">Ver Frontend</a>
+            </div>
+
+            <div class="doc-card sprints">
+                <h3>🗓️ Simulação de Sprints</h3>
+                <p>Cronograma detalhado de desenvolvimento em 4 sprints com distribuição de tarefas por especialidade da equipe.</p>
+                <ul class="features">
+                    <li>✓ 4 sprints semanais planejados</li>
+                    <li>✓ Tasks por especialidade</li>
+                    <li>✓ Timeline de desenvolvimento</li>
+                    <li>✓ Marcos e entregas</li>
+                    <li>✓ Gestão de equipe</li>
+                </ul>
+                <a href="sprints-simulation.html" class="btn sprints">Ver Sprints</a>
+            </div>
+
+            <div class="doc-card roadmap">
+                <h3>🚀 Próximos Passos</h3>
+                <p>Roadmap de implementação de novas funcionalidades: cupons avançados, materiais de construção e serviços.</p>
+                <ul class="features">
+                    <li>✓ 5 fases de implementação</li>
+                    <li>✓ Novas funcionalidades</li>
+                    <li>✓ Cronograma de expansão</li>
+                    <li>✓ Melhorias de sistema</li>
+                    <li>✓ Evolução tecnológica</li>
+                </ul>
+                <a href="next-steps-implementation.html" class="btn roadmap">Ver Roadmap</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <h2>✨ Projeto Maiconsoft API</h2>
+            <p style="font-size: 1.1em; color: #666; margin: 15px 0;">
+                Sistema completo de gestão empresarial desenvolvido com tecnologias modernas 
+                e foco na experiência do usuário e performance.
+            </p>
+            <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px; border-radius: 15px; margin-top: 20px;">
+                <h3>GitHub Pages - Documentação Navigável</h3>
+                <p>Desenvolvido para apresentação acadêmica e portfólio profissional</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

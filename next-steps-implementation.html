@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maiconsoft API - Próximos Passos de Implementação</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #1e3c72;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            color: #1e3c72;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #2a5298;
+            padding-bottom: 10px;
+        }
+
+        .section h3 {
+            color: #34495e;
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+        }
+
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 20px 0;
+        }
+
+        .phase-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid;
+            transition: transform 0.3s ease;
+        }
+
+        .phase-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .phase-card.phase-1 { border-top-color: #e74c3c; }
+        .phase-card.phase-2 { border-top-color: #f39c12; }
+        .phase-card.phase-3 { border-top-color: #27ae60; }
+        .phase-card.phase-4 { border-top-color: #3498db; }
+        .phase-card.phase-5 { border-top-color: #9b59b6; }
+
+        .phase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .phase-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        .phase-duration {
+            background: #ecf0f1;
+            color: #666;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            margin: 10px 0;
+            padding: 10px 15px;
+            background: rgba(46, 125, 50, 0.1);
+            border-left: 4px solid #27ae60;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .feature-list li.priority-high {
+            background: rgba(244, 67, 54, 0.1);
+            border-left-color: #f44336;
+        }
+
+        .feature-list li.priority-medium {
+            background: rgba(255, 152, 0, 0.1);
+            border-left-color: #ff9800;
+        }
+
+        .priority-badge {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 0.8em;
+            padding: 2px 8px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .priority-high { background: #f44336; }
+        .priority-medium { background: #ff9800; }
+        .priority-low { background: #4caf50; }
+
+        .implementation-details {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-left: 5px solid #2a5298;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .code-example {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .code-example pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .tech-requirements {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .tech-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-top: 3px solid #2a5298;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 30px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #2a5298;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-left: 60px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -42px;
+            top: 25px;
+            width: 12px;
+            height: 12px;
+            background: #2a5298;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        .api-endpoint {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+
+        .method-get { border-left: 4px solid #28a745; }
+        .method-post { border-left: 4px solid #007bff; }
+        .method-put { border-left: 4px solid #ffc107; }
+        .method-delete { border-left: 4px solid #dc3545; }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .roadmap-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline {
+                margin-left: 0;
+            }
+            
+            .timeline::before {
+                left: 15px;
+            }
+            
+            .timeline-item {
+                margin-left: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Maiconsoft API - Próximos Passos</h1>
+            <p>Roadmap de Implementação de Novas Funcionalidades | Q4 2025 - Q1 2026</p>
+            
+            <div style="background: rgba(42, 82, 152, 0.1); border-radius: 15px; padding: 20px; margin-top: 20px; text-align: left;">
+                <h3 style="color: #1e3c72; margin-bottom: 15px; text-align: center;">👥 Equipe de Desenvolvimento</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <div style="background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        <strong>🗄️ Backend e Banco de Dados:</strong><br>
+                        <span style="color: #1e3c72;">Denise - Dev Full Stack/DBA</span>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        <strong>🧪 Testes e QA:</strong><br>
+                        <span style="color: #1e3c72;">Leandro - QA Specialist</span>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        <strong>🎨 Front-end:</strong><br>
+                        <span style="color: #1e3c72;">Luiz Antonio - Dev Front-end</span>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        <strong>📋 Gestão e Planejamento:</strong><br>
+                        <span style="color: #1e3c72;">João Vinícius - Líder do Projeto</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VISÃO GERAL DO ROADMAP -->
+        <div class="section">
+            <h2>📋 Visão Geral do Roadmap</h2>
+            <div class="implementation-details">
+                <p><strong>Status Atual:</strong> Sistema base implementado com autenticação JWT, CRUD de clientes/vendas/usuários e sistema de cupons funcionais.</p>
+                
+                <br>
+                
+                <p><strong>Próximas Fases:</strong> Expansão das funcionalidades com foco em gestão de materiais, serviços especializados, relatórios avançados e integração com sistemas externos.</p>
+            </div>
+
+            <div class="tech-requirements">
+                <div class="tech-item">
+                    <h4>⏱️ Timeline Total</h4>
+                    <p>6 meses<br>(Out 2025 - Mar 2026)</p>
+                </div>
+                <div class="tech-item">
+                    <h4>👥 Equipe Necessária</h4>
+                    <p>4 desenvolvedores<br>1 DBA + 1 QA</p>
+                </div>
+                <div class="tech-item">
+                    <h4>📊 Story Points</h4>
+                    <p>180 pontos<br>5 fases principais</p>
+                </div>
+                <div class="tech-item">
+                    <h4>🎯 Novas Features</h4>
+                    <p>15+ funcionalidades<br>25+ APIs REST</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FASE 1: SISTEMA DE CUPONS AVANÇADO -->
+        <div class="section">
+            <h2>🎫 Fase 1: Sistema de Cupons Avançado</h2>
+            <div class="roadmap-grid">
+                <div class="phase-card phase-1">
+                    <div class="phase-header">
+                        <div class="phase-title">Cupons Inteligentes</div>
+                        <div class="phase-duration">3 semanas</div>
+                    </div>
+
+                    <ul class="feature-list">
+                        <li class="priority-high">
+                            <strong>Aplicação Automática de Cupons</strong>
+                            <span class="priority-badge priority-high">ALTA</span>
+                            <br>Sistema que aplica automaticamente o melhor cupom disponível
+                        </li>
+                        <li class="priority-high">
+                            <strong>Cupons por Categoria de Cliente</strong>
+                            <span class="priority-badge priority-high">ALTA</span>
+                            <br>Cupons específicos para clientes VIP, novos clientes, etc.
+                        </li>
+                        <li class="priority-medium">
+                            <strong>Cupons Combinados</strong>
+                            <span class="priority-badge priority-medium">MÉDIA</span>
+                            <br>Permitir uso de múltiplos cupons em uma única venda
+                        </li>
+                        <li class="priority-medium">
+                            <strong>Cupons com Condições</strong>
+                            <span class="priority-badge priority-medium">MÉDIA</span>
+                            <br>Valor mínimo, produtos específicos, quantidade mínima
+                        </li>
+                        <li class="priority-low">
+                            <strong>Sistema de Pontos</strong>
+                            <span class="priority-badge priority-low">BAIXA</span>
+                            <br>Acúmulo de pontos que se convertem em descontos
+                        </li>
+                    </ul>
+
+                    <div class="implementation-details">
+                        <h4>📋 Implementação Técnica:</h4>
+                        <div class="code-example">
+<pre>// Nova entidade CupomRegra
+@Entity
+public class CupomRegra {
+    private Long idRegra;
+    private Cupom cupom;
+    private String tipoRegra; // VALOR_MINIMO, CATEGORIA_CLIENTE
+    private String valorRegra;
+    private Boolean ativo;
+}</pre>
+                        </div>
+                        
+                        <div class="api-endpoint method-post">
+                            <strong>POST</strong> /api/cupons/aplicar-automatico
+                        </div>
+                        <div class="api-endpoint method-get">
+                            <strong>GET</strong> /api/cupons/disponiveis/{idCliente}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FASE 2: GESTÃO DE MATERIAIS -->
+        <div class="section">
+            <h2>🧱 Fase 2: Gestão de Materiais de Construção</h2>
+            <div class="roadmap-grid">
+                <div class="phase-card phase-2">
+                    <div class="phase-header">
+                        <div class="phase-title">Catálogo de Materiais</div>
+                        <div class="phase-duration">4 semanas</div>
+                    </div>
+
+                    <ul class="feature-list">
+                        <li class="priority-high">
+                            <strong>CRUD Completo de Materiais</strong>
+                            <span class="priority-badge priority-high">ALTA</span>
+                            <br>Cadastro com código, descrição, unidade, preço, fornecedor
+                        </li>
+                        <li class="priority-high">
+                            <strong>Controle de Estoque</strong>
+                            <span class="priority-badge priority-high">ALTA</span>
+                            <br>Quantidade disponível, mínima, entrada/saída automatizada
+                        </li>
+                        <li class="priority-high">
+                            <strong>Categorização Avançada</strong>
+                            <span class="priority-badge priority-high">ALTA</span>
+                            <br>Cimento, Areia, Ferro, Hidráulica, Elétrica, Acabamento
+                        </li>
+                        <li class="priority-medium">
+                            <strong>Integração com Fornecedores</strong>
+                            <span class="priority-badge priority-medium">MÉDIA</span>
+                            <br>API para consulta de preços e disponibilidade
+                        </li>
+                        <li class="priority-medium">
+                            <strong>Cálculo Automático de Materiais</strong>
+                            <span class="priority-badge priority-medium">MÉDIA</span>
+                            <br>Com base no projeto, calcular quantidade necessária
+                        </li>
+                        <li class="priority-low">
+                            <strong>Alertas de Estoque Baixo</strong>
+                            <span class="priority-badge priority-low">BAIXA</span>
+                            <br>Notificações automáticas por email/SMS
+                        </li>
+                    </ul>
+
+                    <div class="implementation-details">
+                        <h4>🗄️ Novas Tabelas do Banco:</h4>
+                        <div class="code-example">
+<pre>-- Tabela MATERIAIS
+CREATE TABLE MATERIAIS (
+    ID_MATERIAL BIGINT PRIMARY KEY IDENTITY,
+    CODIGO VARCHAR(20) NOT NULL UNIQUE,
+    NOME VARCHAR(200) NOT NULL,
+    DESCRICAO TEXT,
+    CATEGORIA VARCHAR(50) NOT NULL,
+    UNIDADE VARCHAR(10) NOT NULL, -- M2, M3, KG, UN
+    PRECO_CUSTO DECIMAL(10,2) NOT NULL,
+    PRECO_VENDA DECIMAL(10,2) NOT NULL,
+    ESTOQUE_ATUAL DECIMAL(10,3) DEFAULT 0,
+    ESTOQUE_MINIMO DECIMAL(10,3) DEFAULT 0,
+    ID_FORNECEDOR BIGINT,
+    ATIVO BIT DEFAULT 1,
+    DATA_CRIACAO DATETIME DEFAULT GETDATE()
+);</pre>
+                        </div>
+                        
+                        <div class="api-endpoint method-get">
+                            <strong>GET</strong> /api/materiais?categoria={categoria}&disponivel=true
+                        </div>
+                        <div class="api-endpoint method-post">
+                            <strong>POST</strong> /api/materiais/entrada-estoque
+                        </div>
+                        <div class="api-endpoint method-get">
+                            <strong>GET</strong> /api/materiais/estoque-baixo
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FASE 3: GESTÃO DE SERVIÇOS -->
+        <div class="section">
+            <h2>🔧 Fase 3: Sistema de Serviços Especializados</h2>
+            <div class="roadmap-grid">
+                <div class="phase-card phase-3">
+                    <div class="phase-header">
+                        <div class="phase-title">Serviços Profissionais</div>
+                        <div class="phase-duration">3 semanas</div>
+                    </div>
+
+                    <ul class="feature-list">
+                        <li class="priority-high">
+                            <strong>Catálogo de Serviços Expandido</strong>
+                            <span class="priority-badge priority-high">ALTA</span>
+                            <br>Alvenaria, Hidráulica, Elétrica, Pintura, Acabamento
+                        </li>
+                        <li class="priority-high">
+                            <strong>Precificação Dinâmica</strong>
+                            <span class="priority-badge priority-high">ALTA</span>
+                            <br>Preços baseados em m², complexidade, localização
+                        </li>
+                        <li class="priority-medium">
+                            <strong>Agendamento de Serviços</strong>
+                            <span class="priority-badge priority-medium">MÉDIA</span>
+                            <br>Calendar integrado com disponibilidade de equipes
+                        </li>
+                        <li class="priority-medium">
+                            <strong>Controle de Equipes</strong>
+                            <span class="priority-badge priority-medium">MÉDIA</span>
+                            <br>Gestão de profissionais, especialidades, disponibilidade
+                        </li>
+                        <li class="priority-low">
+                            <strong>Avaliação de Serviços</strong>
+                            <span class="priority-badge priority-low">BAIXA</span>
+                            <br>Sistema de feedback e avaliação pós-serviço
+                        </li>
+                    </ul>
+
+                    <div class="implementation-details">
+                        <h4>📊 Estrutura de Dados:</h4>
+                        <div class="code-example">
+<pre>-- Expandir tabela SERVICOS
+ALTER TABLE SERVICOS ADD
+    COMPLEXIDADE VARCHAR(20), -- SIMPLES, MEDIO, COMPLEXO
+    TEMPO_ESTIMADO INT, -- em horas
+    REQUER_MATERIAL BIT DEFAULT 0,
+    ESPECIALIDADE_REQUERIDA VARCHAR(100),
+    PRECO_POR_M2 DECIMAL(10,2),
+    OBSERVACOES TEXT;
+
+-- Nova tabela AGENDAMENTOS
+CREATE TABLE AGENDAMENTOS (
+    ID_AGENDAMENTO BIGINT PRIMARY KEY IDENTITY,
+    ID_SERVICO BIGINT NOT NULL,
+    ID_CLIENTE BIGINT NOT NULL,
+    ID_PROFISSIONAL BIGINT,
+    DATA_AGENDADA DATETIME NOT NULL,
+    STATUS VARCHAR(20) DEFAULT 'AGENDADO',
+    OBSERVACOES TEXT
+);</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FASE 4: ORÇAMENTOS E PROJETOS -->
+        <div class="section">
+            <h2>📋 Fase 4: Sistema de Orçamentos e Projetos</h2>
+            <div class="roadmap-grid">
+                <div class="phase-card phase-4">
+                    <div class="phase-header">
+                        <div class="phase-title">Orçamentos Inteligentes</div>
+                        <div class="phase-duration">5 semanas</div>
+                    </div>
+
+                    <ul class="feature-list">
+                        <li class="priority-high">
+                            <strong>Gerador de Orçamentos</strong>
+                            <span class="priority-badge priority-high">ALTA</span>
+                            <br>Combinação automática de materiais + serviços + mão de obra
+                        </li>
+                        <li class="priority-high">
+                            <strong>Templates de Projetos</strong>
+                            <span class="priority-badge priority-high">ALTA</span>
+                            <br>Casa 2 quartos, Reforma cozinha, Piscina, etc.
+                        </li>
+                        <li class="priority-medium">
+                            <strong>Controle de Etapas</strong>
+                            <span class="priority-badge priority-medium">MÉDIA</span>
+                            <br>Fundação → Estrutura → Acabamento com % conclusão
+                        </li>
+                        <li class="priority-medium">
+                            <strong>Gestão Financeira</strong>
+                            <span class="priority-badge priority-medium">MÉDIA</span>
+                            <br>Parcelas, recebimentos, fluxo de caixa
+                        </li>
+                        <li class="priority-low">
+                            <strong>Fotos de Progresso</strong>
+                            <span class="priority-badge priority-low">BAIXA</span>
+                            <br>Upload de imagens para acompanhamento visual
+                        </li>
+                    </ul>
+
+                    <div class="implementation-details">
+                        <h4>🏗️ Sistema de Projetos:</h4>
+                        <div class="code-example">
+<pre>CREATE TABLE PROJETOS (
+    ID_PROJETO BIGINT PRIMARY KEY IDENTITY,
+    ID_CLIENTE BIGINT NOT NULL,
+    NOME_PROJETO VARCHAR(200) NOT NULL,
+    DESCRICAO TEXT,
+    TIPO_PROJETO VARCHAR(50), -- CASA_NOVA, REFORMA, PISCINA
+    VALOR_TOTAL DECIMAL(12,2),
+    DATA_INICIO DATE,
+    DATA_PREVISTA_FIM DATE,
+    PERCENTUAL_CONCLUSAO DECIMAL(5,2) DEFAULT 0,
+    STATUS VARCHAR(20) DEFAULT 'ORCAMENTO'
+);
+
+CREATE TABLE PROJETO_ETAPAS (
+    ID_ETAPA BIGINT PRIMARY KEY IDENTITY,
+    ID_PROJETO BIGINT NOT NULL,
+    NOME_ETAPA VARCHAR(100) NOT NULL,
+    ORDEM_EXECUCAO INT,
+    STATUS VARCHAR(20) DEFAULT 'PENDENTE',
+    DATA_INICIO DATE,
+    DATA_FIM DATE
+);</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FASE 5: RELATÓRIOS E DASHBOARDS -->
+        <div class="section">
+            <h2>📊 Fase 5: Relatórios Avançados e Business Intelligence</h2>
+            <div class="roadmap-grid">
+                <div class="phase-card phase-5">
+                    <div class="phase-header">
+                        <div class="phase-title">Analytics Empresarial</div>
+                        <div class="phase-duration">4 semanas</div>
+                    </div>
+
+                    <ul class="feature-list">
+                        <li class="priority-high">
+                            <strong>Dashboard Executivo</strong>
+                            <span class="priority-badge priority-high">ALTA</span>
+                            <br>KPIs, gráficos interativos, métricas em tempo real
+                        </li>
+                        <li class="priority-high">
+                            <strong>Relatórios Financeiros</strong>
+                            <span class="priority-badge priority-high">ALTA</span>
+                            <br>Fluxo de caixa, lucratividade, contas a receber/pagar
+                        </li>
+                        <li class="priority-medium">
+                            <strong>Análise de Performance</strong>
+                            <span class="priority-badge priority-medium">MÉDIA</span>
+                            <br>Profissionais mais produtivos, serviços mais lucrativos
+                        </li>
+                        <li class="priority-medium">
+                            <strong>Previsões e Tendências</strong>
+                            <span class="priority-badge priority-medium">MÉDIA</span>
+                            <br>Machine Learning para prever demanda e custos
+                        </li>
+                        <li class="priority-low">
+                            <strong>Relatórios Customizáveis</strong>
+                            <span class="priority-badge priority-low">BAIXA</span>
+                            <br>Builder de relatórios com drag & drop
+                        </li>
+                    </ul>
+
+                    <div class="implementation-details">
+                        <h4>📈 Tecnologias Adicionais:</h4>
+                        <div class="tech-requirements">
+                            <div class="tech-item">
+                                <h4>Charts.js</h4>
+                                <p>Gráficos interativos</p>
+                            </div>
+                            <div class="tech-item">
+                                <h4>Apache POI</h4>
+                                <p>Export Excel/PDF</p>
+                            </div>
+                            <div class="tech-item">
+                                <h4>Spring Batch</h4>
+                                <p>Processamento relatórios</p>
+                            </div>
+                            <div class="tech-item">
+                                <h4>Redis Cache</h4>
+                                <p>Performance dashboards</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CRONOGRAMA DE IMPLEMENTAÇÃO -->
+        <div class="section">
+            <h2>📅 Cronograma de Implementação</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>🎫 Outubro 2025 - Sistema de Cupons Avançado</h3>
+                    <p><strong>Semanas 1-3:</strong> Implementação de regras de negócio para cupons, aplicação automática e sistema de pontos.</p>
+                    <p><strong>Entregáveis:</strong> 5 novas APIs, interface de gerenciamento de cupons, testes automatizados.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>🧱 Novembro 2025 - Gestão de Materiais</h3>
+                    <p><strong>Semanas 4-7:</strong> Desenvolvimento do módulo completo de materiais com controle de estoque.</p>
+                    <p><strong>Entregáveis:</strong> 8 novas APIs, integração com fornecedores, sistema de alertas.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>🔧 Dezembro 2025 - Sistema de Serviços</h3>
+                    <p><strong>Semanas 8-10:</strong> Expansão do catálogo de serviços e sistema de agendamento.</p>
+                    <p><strong>Entregáveis:</strong> 6 novas APIs, calendar de agendamentos, controle de equipes.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>📋 Janeiro-Fevereiro 2026 - Orçamentos e Projetos</h3>
+                    <p><strong>Semanas 11-15:</strong> Sistema completo de gestão de projetos e orçamentos inteligentes.</p>
+                    <p><strong>Entregáveis:</strong> 10 novas APIs, templates de projetos, controle de etapas.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>📊 Março 2026 - Business Intelligence</h3>
+                    <p><strong>Semanas 16-19:</strong> Dashboards avançados e sistema de relatórios empresariais.</p>
+                    <p><strong>Entregáveis:</strong> Dashboard executivo, 15+ relatórios, sistema de exports.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- RECURSOS NECESSÁRIOS -->
+        <div class="section">
+            <h2>💼 Recursos Necessários</h2>
+            <div class="tech-requirements">
+                <div class="tech-item">
+                    <h4>👨‍💻 Desenvolvedores</h4>
+                    <p>2 Backend Java<br>2 Frontend<br>1 Fullstack</p>
+                </div>
+                <div class="tech-item">
+                    <h4>🗄️ Database</h4>
+                    <p>1 DBA Senior<br>SQL Server licenças<br>Backup solutions</p>
+                </div>
+                <div class="tech-item">
+                    <h4>🧪 Quality Assurance</h4>
+                    <p>1 QA Engineer<br>Selenium Grid<br>Performance tools</p>
+                </div>
+                <div class="tech-item">
+                    <h4>☁️ Infraestrutura</h4>
+                    <p>Azure/AWS<br>Redis Cache<br>CDN para arquivos</p>
+                </div>
+                <div class="tech-item">
+                    <h4>📊 Ferramentas</h4>
+                    <p>Jira/Azure DevOps<br>SonarQube<br>Monitoring tools</p>
+                </div>
+                <div class="tech-item">
+                    <h4>💰 Investimento</h4>
+                    <p>R$ 180.000 - 250.000<br>6 meses<br>ROI em 12 meses</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" style="text-align: center; padding: 30px;">
+            <h2>🎯 Próximo Passo: Definir Prioridades</h2>
+            <p style="font-size: 1.1em; color: #666;">
+                Com este roadmap detalhado, o próximo passo é definir quais funcionalidades têm maior 
+                valor de negócio e iniciar o planejamento das sprints para a Fase 1. 
+                <br><br>
+                <strong>Recomendação:</strong> Começar com o Sistema de Cupons Avançado por ter menor 
+                complexidade e alto impacto nas vendas.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
